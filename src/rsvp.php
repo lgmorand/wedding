@@ -1,4 +1,4 @@
 <?php
-  header('Location: https://forms.gle/gqwgQziZ9PvMpkDu5');
+  header('Location: https://tripetto.app/run/NCAHRB070H');
   exit();
 ?>
