@@ -1,6 +1,4 @@
-<?php
-
-echo '<li class="first-child">
+<li class="first-child">
     <a href="index.php#main-slider">ACCUEIL</a>
 </li>                   			
 <li>
@@ -15,6 +13,3 @@ echo '<li class="first-child">
 <li>
     <a href="rsvp.php">RSVP</a>
 </li>
-';
-
-?>

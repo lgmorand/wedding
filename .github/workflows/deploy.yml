@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      #- name: transformation des fichiers php
-      #run: | 
-       #     cd src
-        #    rename index.html  index.php
-        #    rename gift.html  gift.php
+      - name: transformation des fichiers php
+        run: | 
+           cd src
+           rename index.html  index.php
+           rename gift.html  gift.php
             
       - name: upload FTP
         uses: sebastianpopp/ftp-action@eb75c5cb29d23ee4a729720a27dfb66403cb0f6d
