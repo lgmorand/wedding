@@ -24,4 +24,5 @@ jobs:
           user: potametrck
           password:  ${{ secrets.FTP_PASSWORD }}
           remoteDir: www
+          localDir: src
   
