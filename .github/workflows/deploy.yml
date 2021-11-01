@@ -13,6 +13,7 @@ jobs:
 
       - name: transformation des fichiers php
         run: | 
+           cd src
            mv index.html  index.php
            mv gift.html  gift.php
             
