@@ -16,6 +16,7 @@ jobs:
            cd src
            mv index.html  index.php
            mv gift.html  gift.php
+           mv navette.html  navette.php
             
       - name: upload FTP
         uses: sebastianpopp/ftp-action@eb75c5cb29d23ee4a729720a27dfb66403cb0f6d
