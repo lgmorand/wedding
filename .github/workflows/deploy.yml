@@ -35,7 +35,7 @@ jobs:
           uglifyjs js/owlcarousel/owl.carousel.js > js/owlcarousel/owl.carousel.js
           uglifyjs js/script.js > js/script.js
           cleancss -o css/style.css css/style.css
-          cleancss -o css/animate/animate.css css/animate/animate.cs
+          
           
 
       - name: upload FTP
