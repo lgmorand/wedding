@@ -34,7 +34,7 @@ jobs:
           uglifyjs js/magnific-popup/jquery.magnific-popup.js > js/magnific-popup/jquery.magnific-popup.js
           uglifyjs js/owlcarousel/owl.carousel.js > js/owlcarousel/owl.carousel.js
           uglifyjs js/script.js > js/script.js
-          cleancss -o css/public.css css/public.css
+          cleancss -o css/style.css css/style.css
           cleancss -o css/animate/animate.css css/animate/animate.cs
           
 
