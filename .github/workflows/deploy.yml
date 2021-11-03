@@ -22,7 +22,15 @@ jobs:
         run: |
           npm install uglify-js -g
           npm install clean-css -g
+
+      - name: compressing
+        run: |
+          cd src
+          uglifyjs js/bootstrap/bootstrap.js > js/bootstrap/bootstrap.min.js
+          uglifyjs js/flexslider/jquery.flexslider.js > js/flexslider/jquery.flexslider.min.js
+          uglifyjs js/bootstrap/bootstrap.js > js/bootstrap/bootstrap.min.js
           
+
       - name: upload FTP
         uses: sebastianpopp/ftp-action@eb75c5cb29d23ee4a729720a27dfb66403cb0f6d
         with:
