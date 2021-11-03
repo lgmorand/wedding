@@ -21,7 +21,7 @@ jobs:
       - name: install tooling
         run: |
           npm install uglify-js -g
-          npm install clean-css -g
+          npm install clean-css-cli -g
 
       - name: compressing
         run: |
