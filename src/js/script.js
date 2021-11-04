@@ -460,65 +460,65 @@ $(document).ready(function() {
 	
 	// 13.1 Magnific Zoom
 	//----------------------------------------------------------------------------------
-	$('.magnific-zoom').magnificPopup({
- 		type: 'image',
-		image: {
-    		// options for image content type
-    		titleSrc: 'title'
- 		},
-		//fixedContentPos:true,
-		callbacks: {
-    		open: function() {
-      			// Will fire when this exact popup is opened
-    		},
-    		afterClose: function() {
-      			// Will fire when popup is closed
-    		}
-  		},
-	});
+	// $('.magnific-zoom').magnificPopup({
+ 	// 	type: 'image',
+	// 	image: {
+    // 		// options for image content type
+    // 		titleSrc: 'title'
+ 	// 	},
+	// 	//fixedContentPos:true,
+	// 	callbacks: {
+    // 		open: function() {
+    //   			// Will fire when this exact popup is opened
+    // 		},
+    // 		afterClose: function() {
+    //   			// Will fire when popup is closed
+    // 		}
+  	// 	},
+	// });
 	
 	// 13.2 Magnific Zoom Gallery
 	//----------------------------------------------------------------------------------	
-	$('.magnific-zoom-gallery').magnificPopup({
- 		type: 'image',
-		image: {
-    		// options for image content type
-    		titleSrc: 'title'
- 		},
-		gallery: {
-         	 enabled:true
-        },
-		//fixedContentPos:true,
-		callbacks: {
-    		open: function() {
-      			// Will fire when this exact popup is opened
-    		},
-    		afterClose: function() {
-      			// Will fire when popup is closed
-    		}
-  		},
-	});	 
+	// $('.magnific-zoom-gallery').magnificPopup({
+ 	// 	type: 'image',
+	// 	image: {
+    // 		// options for image content type
+    // 		titleSrc: 'title'
+ 	// 	},
+	// 	gallery: {
+    //      	 enabled:true
+    //     },
+	// 	//fixedContentPos:true,
+	// 	callbacks: {
+    // 		open: function() {
+    //   			// Will fire when this exact popup is opened
+    // 		},
+    // 		afterClose: function() {
+    //   			// Will fire when popup is closed
+    // 		}
+  	// 	},
+	// });	 
 	 
-	// MAGNIFIC AJAX
-	//==================================================================================
-	$('.magnific-ajax').magnificPopup({
-  		type: 'ajax',
-		ajax: {
-			settings: {cache:false} 
-			// Ajax settings object that will extend default one - http://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings
-			// For example:
-			// settings: {cache:false, async:false}
-		},
-		callbacks: {
-    		open: function() {
-      			// Will fire when this exact popup is opened
-    		},
-    		afterClose: function() {
-      			// Will fire when popup is closed
+	// // MAGNIFIC AJAX
+	// //==================================================================================
+	// $('.magnific-ajax').magnificPopup({
+  	// 	type: 'ajax',
+	// 	ajax: {
+	// 		settings: {cache:false} 
+	// 		// Ajax settings object that will extend default one - http://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings
+	// 		// For example:
+	// 		// settings: {cache:false, async:false}
+	// 	},
+	// 	callbacks: {
+    // 		open: function() {
+    //   			// Will fire when this exact popup is opened
+    // 		},
+    // 		afterClose: function() {
+    //   			// Will fire when popup is closed
 				
-    		}
-  		},
-	});		
+    // 		}
+  	// 	},
+	// });		
 	 
 	// 14. DISALBE TRANSITION (Mobile / Tablet)
 	//==================================================================================
