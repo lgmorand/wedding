@@ -266,28 +266,6 @@
 
 
     /*------------------------------------------
-        = POPUP VIDEO
-    -------------------------------------------*/
-    if ($(".video-play-btn").length) {
-        $(".video-play-btn").on("click", function(){
-            $.fancybox({
-                href: this.href,
-                type: $(this).data("type"),
-                'title'         : this.title,
-                helpers     : {
-                    title : { type : 'inside' },
-                    media : {}
-                },
-
-                beforeShow : function(){
-                    $(".fancybox-wrap").addClass("gallery-fancybox");
-                }
-            });
-            return false
-        });
-    }
-
-    /*------------------------------------------
         = POPUP YOUTUBE, VIMEO, GMAPS
     -------------------------------------------*/
     $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({

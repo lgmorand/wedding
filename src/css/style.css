@@ -2705,34 +2705,6 @@ a:focus {
   position: relative;
 }
 
-.story-section .video-holder .video-play-btn {
-  background: rgba(255, 255, 255, 0.8);
-  width: 60px;
-  height: 60px;
-  line-height: 57px;
-  text-align: center;
-  font-size: 25px;
-  font-size: 1.38889rem;
-  border: 2px solid #fff;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -o-border-radius: 50%;
-  -ms-border-radius: 50%;
-  border-radius: 50%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.story-section .video-holder .video-play-btn i {
-  color: #5e9a8e;
-}
-
 .story-section .story-timeline .story-slider .owl-controls {
   display: none;
 }
