@@ -1,536 +1,758 @@
-'use strict';
+(function($) {
 
-/*============================== 
-	- Template Name: FOREVER - Responsive HTML Wedding Template
-	- Author: DoubleEight
-	- Version: 1.0
-	- Website: www.dethemes.com
-================================= */
+	"use strict";
 
-/*---------------------- 
-	Script Guide
-------------------------
-01. BROWSER AGENT FUNCTION
-	01.1 Check CHROME (Mobile / Tablet)
-	01.2 Check IOS
-	01.3 Check FIREFOX
-	01.4 Check IE (< IE10)
-	01.5 Check IE11
-	01.6 Check IE11 (Not Windows Phone)
-	01.7 Check IE10
-	01.8 Check IE9
-	01.9 Check Safari/Chrome Mac
-	
-02. FULLSCREEN CLASS
 
-03. HIDDEN ALL ANIMATION CLASS
+    /*------------------------------------------
+        = FUNCTIONS
+    -------------------------------------------*/
+    // Check ie and version
+    function isIE () {
+        var myNav = navigator.userAgent.toLowerCase();
+        return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1], 10) : false;
+    }
 
-04. PACE PRELOADER
-	04.1 Gallery - Masonry
-	04.2 Nav Header Position (Mobile / Tablet)
-	04.3 Waypoint Sticky Navbar
-		04.3.1 Top Bar
-		04.3.2 Bottom Bar
-	04.4 Waypoint Sticky Menu Icon (Sidebar Version)
-	04.5 Waypoint Animate CSS
-	04.6 Stellar Parallax
-	
-05. PRELOADER HEART ANIMATION (IE10 / 11)
 
-06. BIND TOUCH FOR PHOTO ITEM (Mobile / Tablet)
+    // Toggle mobile navigation
+    function toggleMobileNavigation() {
+        var navbar = $(".navigation-holder");
+        var openBtn = $(".navbar-header .open-btn");
+        var closeBtn = $(".navigation-holder .close-navbar");
+        var navLinks = $("#navbar > ul > li > a[href^='#']");
 
-07. COUNTDOWN
+        openBtn.on("click", function() {
+            if (!navbar.hasClass("slideInn")) {
+                navbar.addClass("slideInn");
+            }
+            return false;
+        })
 
-08. MOBILE MENU
+        closeBtn.on("click", function() {
+            if (navbar.hasClass("slideInn")) {
+                navbar.removeClass("slideInn");
+            }
+            return false;
+        })
 
-09. DOUBLE TAP DROP DOWN MENU
+        navLinks.on("click", function() {
+            if (navbar.hasClass("slideInn")) {
+                navbar.removeClass("slideInn");
+            }
+            return false;
+        })
+    }
 
-10. OWL CAROUSEL
-	10.1 OWL CAROUSEL - GIFT REGISTRY
-	10.2 OWL CAROUSEL - MORE EVENTS (ONEPAGE)
-	10.3 OWL CAROUSEL - REGISTRY LOGO (ONEPAGE)
+    toggleMobileNavigation();
 
-11. RSVP
-	11.1 Custom Checkbox
-	11.2 Custom Radio
 
-12. SMOOTH SCROLL
+    // Function for toggle a class for small menu
+    function toggleClassForSmallNav() {
+        var windowWidth = window.innerWidth;
+        var mainNav = $("#navbar > ul");
 
-13. MAGNIFIC POPUP
-	13.1 Magnific Zoom
-	13.2 Magnific Zoom Gallery
-	13.3 Magnific Ajax
-	
-14. DISALBE TRANSITION (Mobile / Tablet)
+        if (windowWidth <= 991) {
+            mainNav.addClass("small-nav");
+        } else {
+            mainNav.removeClass("small-nav");
+        }
+    }
 
-15. AUDIO
-	15.1 Reset Mute Control (Chrome and Safari Mobile)
-	15.2 On toggle mute button
+    toggleClassForSmallNav();
 
-16. VIDEO CONTROL
-	16.1 Hide Video Control (Mobile / Tablet)
-	16.2 Play Pause Video
 
-17. OPTIONS SETTING
-	
-*/
-		
-	
-	
-$(document).ready(function() {
-		
-	// 01. BROWSER AGENT FUNCTION		
-	//==================================================================================
-	
-	// 01.1 Check Chrome (Mobile / Tablet)
-	//----------------------------------------------------------------------------------
-	var isChromeMobile = function isChromeMobile() {
-		if (device.tablet() || device.mobile()) {
-			if (window.navigator.userAgent.indexOf("Chrome") > 0 || window.navigator.userAgent.indexOf("CriOS") > 0){
-				return 1;
-			}
-		}
-	}
-	
-	// 01.2 Check IOS
-	//----------------------------------------------------------------------------------
-	var isIOS = function isIOS() {
-		if (window.navigator.userAgent.indexOf("iPhone") > 0 || window.navigator.userAgent.indexOf("iPad") > 0 || window.navigator.userAgent.indexOf("iPod") > 0){
-			return 1;
-		}
-	}
-	
-	// 01.3 Check FIREFOX 
-	//----------------------------------------------------------------------------------
-	var is_firefox = function is_firefox() {
-		if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-			return 1;
-		}
-	}
-	
-	// 01.4 Check IE (< IE10)
-	//----------------------------------------------------------------------------------
-	var isIE = function isIE() {
- 		if (window.navigator.userAgent.indexOf("MSIE ") > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
-   		 	return 1;
-		}
-	}
-	
-	// 01.5 Check IE11
-	//----------------------------------------------------------------------------------
-	var isIE11 = function isIE11() {	
- 		if (!!navigator.userAgent.match(/Trident\/7\./)) {
-   		 	return 1;
-		}
-	}
-	
-	// 01.6 Check IE11 (Not Windows Phone)
-	///----------------------------------------------------------------------------------
-	var isIE11desktop = function isIE11desktop() {	
- 		if (!!navigator.userAgent.match(/Trident\/7\./) && window.navigator.userAgent.indexOf("Windows Phone") < 0) {
-   		 	return 1;
-		}
-	}
-	
-	// 01.7 Check IE10
-	//----------------------------------------------------------------------------------
-	var isIE10 = function isIE10() {
- 		if (window.navigator.userAgent.indexOf("MSIE 10.0") > 0) {
-   		 	return 1;
-		}
-	}
-	
-	// 01.8 Check IE9
-	//----------------------------------------------------------------------------------
-	var isIE9 = function isIE9() {
- 		if (window.navigator.userAgent.indexOf("MSIE 9.0") > 0) {
-   		 	return 1;
-		}
-	}
-	
-	// 01.9 Check Safari/Chrome Mac
-	//----------------------------------------------------------------------------------
-	var isSafari = function isSafari() {
-	 	if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Mac') != -1) {
-   		 	return 1;
-		}
-	}
-		
-	
-	// 02. FULLSCREEN CLASS		
-	//==================================================================================
-	var fullscreen = function(){
-		var fheight = $(window).height();
-		$('.fullscreen').css("height",fheight);		
-	}
-	
-	//Execute on load
-	fullscreen();
-		
-	//Execute on window resize
-	$(window).resize(function() {	
-		fullscreen();	
-	});
-	
-	// 03. HIDDEN ALL ANIMATION CLASS
-	//==================================================================================
-	// Waypoint will animate it later (04.5 Waypoint Animate CSS)
-	if( !device.tablet() && !device.mobile() && !isIE9() ) {
-		$('.animation').css({
-			visibility: 'hidden'
-		});	
-	}
-			
-	// 04. PACE PRELOADER
-	//==================================================================================
-	Pace.on('done', function () {
-		$('#preloader').hide();
-	});
-	
-	Pace.on('hide', function () {
-		
-		// 04.1 Gallery - Masonry
-		//------------------------------------------------------------------------------
-		var $gallery = $('#masonry-gallery');
-			
-		if (device.tablet() || device.mobile()) {
-			$gallery.masonry({
-				columnWidth: ".grid-sizer",
-				itemSelector: ".masonry-col",
-				gutter: ".gutter-sizer",
-				transitionDuration: 0,
-			});
-		}
-		else
-		{
-			$gallery.masonry({
-				columnWidth: ".grid-sizer",
-				itemSelector: ".masonry-col",
-				gutter: ".gutter-sizer",
-				transitionDuration: "1s",
-			});
-		}
-			
-		
-		// 04.2 Nav Header Position (Mobile)
-		//------------------------------------------------------------------------------
-		if (device.tablet() || device.mobile()) {
-			if ($("#nav-bar").hasClass("sticky-nav")) {
-				$("#nav-header").css("position","relative");
-			}
-		}
-		
-		// 04.3 Waypoint Sticky Navbar
-		//------------------------------------------------------------------------------		
-		if ($("#nav-bar").hasClass("sticky-nav")){
-			
-			// 04.3.1 Top Bar
-			if ($("#nav-bar").hasClass("top-bar")){
-			
-	 			var nav_header_waypoint = $('#nav-header').waypoint(function(direction) {
-  					
-					if (direction === 'down') {
-						if( !device.tablet() && !device.mobile() ) {
-							$("#nav-bar").addClass("stick-it animated fadeInDownBig");
-						}
-						else
-						{
-							$("#nav-bar").addClass("stick-it");
-						}
-					}
-					else {
-						$("#nav-bar").removeClass("stick-it animated fadeInDownBig");
-					}
-				
-				}, {
-  					offset:'-100%'
-				});
-			}
-			
-			// 04.3.2 Bottom Bar
-			else if  ($("#nav-bar").hasClass("bottom-bar")){
-				
-				var waypoints = $('#nav-header').waypoint(function(direction) {
-  					
-					if (direction === 'down') {
-						if( !device.tablet() && !device.mobile() ) {
-							$("#nav-bar").addClass("stick-it animated fadeInDownBig");
-						}
-						else
-						{
-							$("#nav-bar").addClass("stick-it");
-						}
-					}
-					else if (direction === 'up') {
-						$("#nav-bar").removeClass("stick-it animated fadeInDownBig");
-					}
-						
-				}, {
-  					offset:'-145px'
-				});		
-			}
-			
-		}
-		
-		// 04.4 Waypoint Sticky Menu Icon (Sidebar Version)
-		//------------------------------------------------------------------------------
-		
-		var sticky_menuicon_waypoint = $('#menu-icon').waypoint(function(direction) {
-			if (direction === 'down') {
-				$('#sticky-menuicon').show();
-			}
-			else {
-				$('#sticky-menuicon').hide();
-			}
-			
-		}, {
-  			offset:'-100%'
-		})
-			
-			
-		// 04.5 Waypoint Animate CSS
-		//------------------------------------------------------------------------------
-		if( !device.tablet() && !device.mobile() && !isIE9() ) {	
-			$('.animation').each(function(){
-        		var _this = this;
-        		var animation_waypoint = new Waypoint({
-            		element: _this,
-            		handler: function (direction) {
-						$(this.element).css({ visibility: 'visible' });
-						$(this.element).addClass('animated');
-            			},
-            			offset: '90%'
-        			});
-        	});
-			
-		}		
-		
-		// 04.6 Stellar Parallax
-		//------------------------------------------------------------------------------
-	 	if( !device.tablet() && !device.mobile() && !isIE9() && !isIE10() && !isSafari() ) {
-			$(".image-divider").css("background-attachment","fixed");
-		 	$(window).stellar({
-			 	horizontalScrolling: false,
-				responsive: true,
-		 	});
-	 	}
-	 		 
-	}); // END of Pace on Hide
-	
-	
-	// 05. PRELOADER HEART ANIMATION (IE10 / 11)
-	//==================================================================================	
-	if (isIE10() || isIE11()){
-		$(".heart-animation").css("letter-spacing","normal");
-	}
-	
-	// 05. IMAGE DIVIDER (Mobile / Tablet)
-	//==================================================================================
-	/*if (device.tablet() || device.mobile() || isIE9() || isIE10() ||isSafari()) {
-		$(".image-divider").addClass("mobile");
-	}*/
-		
-	// 06. BIND TOUCH FOR PHOTO ITEM (Mobile / Tablet)
-	//==================================================================================
-	$('.photo-item').bind('touchstart touchend', function(e) {
-	});
-		
-	// 07. COUNTDOWN
-	//===================================================================================
-	var theday = new Date();
-	theday = new Date(2022, 7-1, 16);
-	$('#countdown').countdown({until: theday, format: 'DHMS'});
-	$('#countdown').countdown($.countdown.regionalOptions['custom-label']); 
-		 
-	$('#date-countdown').countdown({until: theday, format: 'DHMS'});
-		 
-	// 08. MOBILE MENU
-	//==================================================================================
-	$("#mobile-nav").click(function(e){
-		e.preventDefault()
-		$("#nav-menu").toggleClass("open");
-	});
-	
-	// Hide Menu After Click It. Will be used on onepage version. 
-	$("#nav-menu li a").click(function(){
-		 if ($(this).attr("href") !== "#") {
-			 $("#nav-menu").removeClass("open");
-		 }
-	});
-	 	 
-	// 09. DOUBLE TAP DROP DOWN MENU
-	//==================================================================================
-	if ($(window).width() > 991){
-		$( '#nav-menu' ).doubleTapToGo();
-	}	 
-	
-	// 10. OWL CAROUSEL
-	//==================================================================================
+    // Function for small menu
+    function smallNavFunctionality() {
+        var windowWidth = window.innerWidth;
+        var mainNav = $(".navigation-holder");
+        var smallNav = $(".navigation-holder > .small-nav");
+        var subMenu = smallNav.find(".sub-menu");
+        var megamenu = smallNav.find(".mega-menu");
+        var menuItemWidthSubMenu = smallNav.find(".menu-item-has-children > a");
 
-	// 10.1 OWL CAROUSEL - GIFT REGISTRY
-	//------------------------------------------------------------------------------
-	if ($("#gift-registry").length){
-    	$("#gift-registry").owlCarousel({
-			items : 3, 
-			autoPlay: 2000,
-			stopOnHover: true,
-			pagination: true,
-		});
-		
-		if (device.tablet() || device.mobile()) {
-			var owl_gift = $("#gift-registry").data('owlCarousel');
-			owl_gift.stop()
-		}
-	}
- 	
-	// 10.2 OWL CAROUSEL - MORE EVENTS (ONEPAGE)
-	//------------------------------------------------------------------------------
-	if ($("#events-carousel").length){		
-    	$("#events-carousel").owlCarousel({
-			items : 2,
-			itemsDesktopSmall: [979,2], 
-			autoPlay: 2000,
-			stopOnHover: true,
-			pagination: true,
-			navigation:false,
-		});		
-		
-		if (device.tablet() || device.mobile()) {
-			var owl_events = $("#events-carousel").data('owlCarousel');
-			owl_events.stop()
-		}	
-	}
- 	
-	// 10.3 OWL CAROUSEL - REGISTRY LOGO (ONEPAGE)
-	//------------------------------------------------------------------------------
-	if ($("#registry-logo").length){		
-    	$("#registry-logo").owlCarousel({
-			items : 3, 
-			autoPlay: 2000,
-			stopOnHover: true,
-			pagination: false,
-			navigation: false,
-		});
-		
-		if (device.tablet() || device.mobile()) {
-			var owl_logo = $("#registry-logo").data('owlCarousel');
-			owl_logo.stop()
-		}
-	}
-		
-		
-	// 11. RSVP
-	//==================================================================================
-	if ($("#rsvpform").length){
-		$("#rsvpform").ajaxrsvp();
-	}
-	
-	// 11.1 Custom Checkbox
-	//----------------------------------------------------------------------------------
-	$(".ajax-checkbox .custom-option-icon").click(function(){
-		$(this).toggleClass( "active-icon" );
-	});
+        if (windowWidth <= 991) {
+            subMenu.hide();
+            megamenu.hide();
+            menuItemWidthSubMenu.on("click", function(e) {
+                var $this = $(this);
+                $this.siblings().slideToggle();
+                 e.preventDefault();
+                e.stopImmediatePropagation();
+            })
+        } else if (windowWidth > 991) {
+            mainNav.find(".sub-menu").show();
+            mainNav.find(".mega-menu").show();
+        }
+    }
 
-	// 11.2 Custom Radio
-	//----------------------------------------------------------------------------------
-	$(".ajax-radio .custom-option-icon").click(function(){
-		if (!($(this).parent().hasClass("radio"))){
-			$(this).siblings().removeClass( "active-icon" );
-			$(this).addClass( "active-icon" );
-		}
-		else{
-			$(this).parent().siblings().children(".custom-option-icon").removeClass( "active-icon" );
-			$(this).addClass( "active-icon" );
-		}
-	});	 
-	 
-	// 12. SMOOTH SCROLL
-	//=========================================================================
-	$('a.smooth-scroll').smoothScroll({
-		speed: 1000,
-	});	 
-	 
-	$('.nav-smooth-scroll a').smoothScroll({
-		speed: 1000,
-		offset: -80,
-	});	
-	 
-	// 13. MAGNIFIC POPUP
-	//==================================================================================
-	
-	// 13.1 Magnific Zoom
-	//----------------------------------------------------------------------------------
-	// $('.magnific-zoom').magnificPopup({
- 	// 	type: 'image',
-	// 	image: {
-    // 		// options for image content type
-    // 		titleSrc: 'title'
- 	// 	},
-	// 	//fixedContentPos:true,
-	// 	callbacks: {
-    // 		open: function() {
-    //   			// Will fire when this exact popup is opened
-    // 		},
-    // 		afterClose: function() {
-    //   			// Will fire when popup is closed
-    // 		}
-  	// 	},
-	// });
-	
-	// 13.2 Magnific Zoom Gallery
-	//----------------------------------------------------------------------------------	
-	// $('.magnific-zoom-gallery').magnificPopup({
- 	// 	type: 'image',
-	// 	image: {
-    // 		// options for image content type
-    // 		titleSrc: 'title'
- 	// 	},
-	// 	gallery: {
-    //      	 enabled:true
-    //     },
-	// 	//fixedContentPos:true,
-	// 	callbacks: {
-    // 		open: function() {
-    //   			// Will fire when this exact popup is opened
-    // 		},
-    // 		afterClose: function() {
-    //   			// Will fire when popup is closed
-    // 		}
-  	// 	},
-	// });	 
-	 
-	// // MAGNIFIC AJAX
-	// //==================================================================================
-	// $('.magnific-ajax').magnificPopup({
-  	// 	type: 'ajax',
-	// 	ajax: {
-	// 		settings: {cache:false} 
-	// 		// Ajax settings object that will extend default one - http://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings
-	// 		// For example:
-	// 		// settings: {cache:false, async:false}
-	// 	},
-	// 	callbacks: {
-    // 		open: function() {
-    //   			// Will fire when this exact popup is opened
-    // 		},
-    // 		afterClose: function() {
-    //   			// Will fire when popup is closed
-				
-    // 		}
-  	// 	},
-	// });		
-	 
-	// 14. DISALBE TRANSITION (Mobile / Tablet)
-	//==================================================================================
-	if( device.tablet() || device.mobile() ) {
-		if (!isIE11desktop()){
-			// de-icon
-			$(".de-icon, .de-icon i").css("transition","none");
-		
-			// Photo-item		 
-			$(".photo-item img.hover-animation").css("transition","none");
-			$(".photo-item .layer.hover-animation").css("transition","none"); 
-		 }
-	 }
-});
-	 
+    smallNavFunctionality();
+
+
+    // function for active menuitem
+    function activeMenuItem($links) {
+        var top = $(window).scrollTop(),
+            windowHeight = $(window).height(),
+            documentHeight = $(document).height(),
+            cur_pos = top + 2,
+            sections = $("section"),
+            nav = $links,
+            nav_height = nav.outerHeight();
+
+
+        sections.each(function() {
+            var top = $(this).offset().top - nav_height,
+                bottom = top + $(this).outerHeight();
+
+            if (cur_pos >= top && cur_pos <= bottom) {
+                nav.find("> ul > li > a").parent().removeClass("current-menu-item");
+                nav.find("a[href='#" + $(this).attr('id') + "']").parent().addClass("current-menu-item");
+            } else if (cur_pos === 2) {
+                nav.find("> ul > li > a").parent().removeClass("current-menu-item");
+            }
+
+        });
+    }
+
+
+    // smooth-scrolling
+    function smoothScrolling($scrollLinks, $topOffset) {
+        var links = $scrollLinks;
+        var topGap = $topOffset;
+
+        links.on("click", function() {
+            if (location.pathname.replace(/^\//,'') === this.pathname.replace(/^\//,'') && location.hostname === this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $("[name=" + this.hash.slice(1) +"]");
+                if (target.length) {
+                    $("html, body").animate({
+                    scrollTop: target.offset().top - topGap
+                }, 1000, "easeInOutExpo");
+                    return false;
+                }
+            }
+            return false;
+        });
+    }
+
+
+    // Parallax background
+    function bgParallax() {
+        if ($(".parallax").length) {
+            $(".parallax").each(function() {
+                var height = $(this).position().top;
+                var resize     = height - $(window).scrollTop();
+                var parallaxSpeed = $(this).data("speed");
+                var doParallax = -(resize / parallaxSpeed);
+                var positionValue   = doParallax + "px";
+                var img = $(this).data("bg-image");
+
+                $(this).css({
+                    backgroundImage: "url(" + img + ")",
+                    backgroundPosition: "50%" + positionValue,
+                    backgroundSize: "cover"
+                });
+
+                if ( window.innerWidth < 768) {
+                    $(this).css({
+                        backgroundPosition: "center center"
+                    });
+                }
+            });
+        }
+    }
+
+    bgParallax();
+
+
+    // Hero slider background setting
+    function sliderBgSetting() {
+        if ($(".hero-slider .slide-item").length) {
+            $(".hero-slider .slide-item").each(function() {
+                var $this = $(this);
+                var img = $this.find(".slider-bg").attr("src");
+
+                $this.css({
+                    backgroundImage: "url("+ img +")",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center"
+                })
+            });
+        }
+    }
+
+    //Setting hero slider
+    function heroSlider() {
+        if ($(".hero-slider").length) {
+            $(".hero-slider").slick({
+                arrows: true,
+                prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+                nextArrow: '<button type="button" class="slick-next">Next</button>',
+                dots: true,
+                fade: true,
+                cssEase: 'linear'
+            });
+        }
+    }
+
+
+    // set two coloumn height equial
+    function setTwoColEqHeight($col1, $col2) {
+        var firstCol = $col1,
+            secondCol = $col2,
+            firstColHeight = $col1.innerHeight(),
+            secondColHeight = $col2.innerHeight();
+
+        if (firstColHeight > secondColHeight) {
+            secondCol.css({
+                "height": firstColHeight + 1 + "px"
+            })
+        } else {
+            firstCol.css({
+                "height": secondColHeight + 1 + "px"
+            })
+        }
+    }
+
+    function popupSaveTheDateCircle() {
+        var saveTheDateCircle = $(".save-the-date");
+        saveTheDateCircle.addClass("popup-save-the-date");
+    }
+
+
+
+    /*------------------------------------------
+        = HIDE PRELOADER
+    -------------------------------------------*/
+    function preloader() {
+        if($('.preloader').length) {
+            $('.preloader').delay(100).fadeOut(500, function() {
+
+                //active wow
+                wow.init();
+
+                if($(".save-the-date").length) {
+                    popupSaveTheDateCircle();
+                }
+
+                //Active heor slider
+                heroSlider();
+
+            });
+        }
+    }
+
+
+    /*------------------------------------------
+        = WOW ANIMATION SETTING
+    -------------------------------------------*/
+    var wow = new WOW({
+        boxClass:     'wow',      // default
+        animateClass: 'animated', // default
+        offset:       0,          // default
+        mobile:       true,       // default
+        live:         true        // default
+    });
+
+
+    /*------------------------------------------
+        = ACTIVE POPUP GALLERY
+    -------------------------------------------*/
+    if ($(".gallery-fancybox").length) {
+        $(".fancybox").fancybox({
+            openEffect  : "elastic",
+            closeEffect : "elastic",
+            wrapCSS     : "project-fancybox-title-style"
+        });
+    }
+
+
+    /*------------------------------------------
+        = POPUP VIDEO
+    -------------------------------------------*/
+    if ($(".video-play-btn").length) {
+        $(".video-play-btn").on("click", function(){
+            $.fancybox({
+                href: this.href,
+                type: $(this).data("type"),
+                'title'         : this.title,
+                helpers     : {
+                    title : { type : 'inside' },
+                    media : {}
+                },
+
+                beforeShow : function(){
+                    $(".fancybox-wrap").addClass("gallery-fancybox");
+                }
+            });
+            return false
+        });
+    }
+
+    /*------------------------------------------
+        = POPUP YOUTUBE, VIMEO, GMAPS
+    -------------------------------------------*/
+    $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+        type: 'iframe',
+        mainClass: 'mfp-fade',
+        removalDelay: 160,
+        preloader: false,
+        fixedContentPos: false
+    });
+
+
+
+    /*------------------------------------------
+        = ACTIVE GALLERY POPUP IMAGE
+    -------------------------------------------*/
+    if ($(".popup-gallery").length) {
+        $('.popup-gallery').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+
+            gallery: {
+              enabled: true
+            },
+
+            zoom: {
+                enabled: true,
+
+                duration: 300,
+                easing: 'ease-in-out',
+                opener: function(openerElement) {
+                    return openerElement.is('img') ? openerElement : openerElement.find('img');
+                }
+            }
+        });
+    }
+
+
+    /*------------------------------------------
+        = ACTIVE POPUP IMAGE
+    -------------------------------------------*/
+    if ($(".popup-image").length) {
+        $('.popup-image').magnificPopup({
+            type: 'image',
+            zoom: {
+                enabled: true,
+
+                duration: 300,
+                easing: 'ease-in-out',
+                opener: function(openerElement) {
+                    return openerElement.is('img') ? openerElement : openerElement.find('img');
+                }
+            }
+        });
+    }
+
+
+
+    /*------------------------------------------
+        = FUNCTION FORM SORTING GALLERY
+    -------------------------------------------*/
+    function sortingGallery() {
+        if ($(".sortable-gallery .gallery-filters").length) {
+            var $container = $('.gallery-container');
+            $container.isotope({
+                filter:'*',
+                animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false,
+                }
+            });
+
+            $(".gallery-filters li a").on("click", function() {
+                $('.gallery-filters li .current').removeClass('current');
+                $(this).addClass('current');
+                var selector = $(this).attr('data-filter');
+                $container.isotope({
+                    filter:selector,
+                    animationOptions: {
+                        duration: 750,
+                        easing: 'linear',
+                        queue: false,
+                    }
+                });
+                return false;
+            });
+        }
+    }
+
+    sortingGallery();
+
+
+    /*------------------------------------------
+        = MASONRY GALLERY SETTING
+    -------------------------------------------*/
+    function masonryGridSetting() {
+        if ($('.masonry-gallery').length) {
+            var $grid =  $('.masonry-gallery').masonry({
+                itemSelector: '.grid',
+                columnWidth: '.grid',
+                percentPosition: true
+            });
+
+            $grid.imagesLoaded().progress( function() {
+                $grid.masonry('layout');
+            });
+        }
+    }
+
+    masonryGridSetting();
+
+
+    /*------------------------------------------
+        = STICKY HEADER
+    -------------------------------------------*/
+
+    // Function for clone an element for sticky menu
+    function cloneNavForSticyMenu($ele, $newElmClass) {
+        $ele.addClass('original').clone().insertAfter($ele).addClass($newElmClass).removeClass('original');
+    }
+
+    // clone home style 1 navigation for sticky menu
+    if ($('.header-style-1 .navigation').length) {
+        cloneNavForSticyMenu($('.header-style-1 .navigation'), "sticky");
+    }
+
+    // clone home style 1 navigation for sticky menu
+    if ($('.header-style-2 .navigation').length) {
+        cloneNavForSticyMenu($('.header-style-2 .navigation'), "sticky-2");
+    }
+
+    // Function for sticky menu
+    function stickIt($stickyClass, $toggleClass, $topOffset) {
+        if ($(window).scrollTop() >= $topOffset) {
+            var orgElement = $(".original");
+            var widthOrgElement = orgElement.css("width");
+
+            $stickyClass.addClass($toggleClass);
+
+            $stickyClass.css({
+                "width": widthOrgElement
+            }).show();
+
+            $(".original").css({
+                "visibility": "hidden"
+            });
+
+        } else {
+
+            $(".original").css({
+                "visibility": "visible"
+            });
+
+            $stickyClass.removeClass($toggleClass);
+        }
+    }
+
+
+    /*-------------------------------------------------------
+        = COUPLE SECTION IMAGE BG SETTING
+    -----------------------------------------------------*/
+    if ($(".wedding-couple-section .gb").length) {
+
+        var imgHolder = $(".wedding-couple-section .gb .img-holder");
+
+        imgHolder.each(function() {
+            var $this = $(this);
+            var imgHolderPic = $this.find("img").attr("src");
+
+            $this.css({
+                backgroundImage: "url("+ imgHolderPic +")",
+                backgroundSize: "cover",
+                backgroundPosition: "center center"
+            })
+        })
+    }
+
+
+    /*------------------------------------------
+        = COUNTDOWN CLOCK
+    -------------------------------------------*/
+    if ($("#clock").length) {
+        $('#clock').countdown('2022/07/16', function(event) {
+            var $this = $(this).html(event.strftime(''
+            + '<div class="box"><div>%D</div> <span>Days</span> </div>'
+            + '<div class="box"><div>%H</div> <span>Hours</span> </div>'
+            + '<div class="box"><div>%M</div> <span>Mins</span> </div>'
+            + '<div class="box"><div>%S</div> <span>Secs</span> </div>'));
+        });
+    }
+
+
+    /*------------------------------------------
+        = STORY SLIDER
+    -------------------------------------------*/
+    if ($(".story-slider").length) {
+        $('.story-slider').owlCarousel({
+            items: 1,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            smartSpeed: 1000,
+            loop: true,
+        });
+    }
+
+
+    /*------------------------------------------
+        = GIFT REGISTRATION SLIDER
+    -------------------------------------------*/
+    if ($(".gif-registration-slider").length) {
+        $('.gif-registration-slider').owlCarousel({
+            items: 3,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            smartSpeed: 1000,
+            loop: true,
+            margin: 20,
+            stagePadding: 10,
+            responsive: {
+                0 : {
+                    items: 1
+                },
+                480 : {
+                    items: 2
+                },
+                768 : {
+                    items: 3
+                }
+            }
+        });
+    }
+
+
+    /*------------------------------------------
+        = RSVP FORM SUBMISSION
+    -------------------------------------------*/
+    if ($("#rsvp-form").length) {
+        $("#rsvp-form").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                email: "required",
+
+                guest: {
+                    required: true
+                },
+
+                events: {
+                    required: true
+                }
+
+            },
+
+            messages: {
+                name: "Please enter your name",
+                email: "Please enter your email",
+                guest: "Select your number of guest",
+                events: "Select your event list"
+            },
+
+            submitHandler: function (form) {
+                $("#loader").css("display", "inline-block");
+                $.ajax({
+                    type: "POST",
+                    url: "mail.php",
+                    data: $(form).serialize(),
+                    success: function () {
+                        $( "#loader").hide();
+                        $( "#success").slideDown( "slow" );
+                        setTimeout(function() {
+                        $( "#success").slideUp( "slow" );
+                        }, 3000);
+                        form.reset();
+                    },
+                    error: function() {
+                        $( "#loader").hide();
+                        $( "#error").slideDown( "slow" );
+                        setTimeout(function() {
+                        $( "#error").slideUp( "slow" );
+                        }, 3000);
+                    }
+                });
+                return false; // required to block normal submit since you used ajax
+            }
+
+        });
+    }
+
+
+    /*------------------------------------------
+        = TOGGLE MUSUC BIX
+    -------------------------------------------*/
+    if($(".music-box").length) {
+        var musicBtn = $(".music-box-toggle-btn"),
+            musicBox = $(".music-holder");
+
+        musicBtn.on("click", function() {
+            musicBox.toggleClass("toggle-music-box");
+            return false;
+        })
+    }
+
+
+    /*------------------------------------------
+        = BACK TO TOP
+    -------------------------------------------*/
+    if($(".back-to-top-btn").length) {
+        $(".back-to-top-btn").on("click", function() {
+            $("html,body").animate({
+                scrollTop: 0
+            }, 2000, "easeInOutExpo");
+            return false;
+        })
+    }
+
+
+    /*------------------------------------------
+        = BLOG MEDIA CAROUSEL
+    -------------------------------------------*/
+    if ($(".media-carousel").length) {
+        $(".media-carousel").owlCarousel({
+            items: 1,
+            smartSpeed: 500,
+            nav: true,
+            navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+            dots: false
+        })
+    }
+
+
+    /*------------------------------------------
+        = WATER RIPPLE
+    -------------------------------------------*/
+    if ($(".ripple").length) {
+        $('.ripple').ripples({
+            resolution: 512,
+            dropRadius: 20, //px
+            perturbance: 0.04,
+        });
+
+        // Automatic drops
+        setInterval(function() {
+            var $el = $('.ripple');
+            var x = Math.random() * $el.outerWidth();
+            var y = Math.random() * $el.outerHeight();
+            var dropRadius = 20;
+            var strength = 0.04 + Math.random() * 0.04;
+
+            $el.ripples('drop', x, y, dropRadius, strength);
+        }, 400);
+    }
+
+
+    /*------------------------------------------
+        = PARTICLE GROUND
+    -------------------------------------------*/
+    if ($(".particleground").length) {
+        $('.particleground').particleground({
+            dotColor: "#78c1b3",
+            lineColor: "#5e9a8e",
+            lineWidth: 0.7,
+            particleRadius: 6
+
+        });
+    }
+
+
+    /*------------------------------------------
+        = VIDEO BACKGROUND
+    -------------------------------------------*/
+    if ($("#video-background").length) {
+        $('#video-background').YTPlayer({
+            showControls: false,
+            playerVars: {
+                modestbranding: 0,
+                autoplay: 1,
+                controls: 1,
+                showinfo: 0,
+                wmode: 'transparent',
+                branding: 0,
+                rel: 0,
+                autohide: 0,
+                origin: window.location.origin
+            }
+        });
+    }
+
+
+    /*------------------------------------------
+        = SURFACE SHADER
+    -------------------------------------------*/
+    if ($(".surface-shader").length) {
+        //$('.surface-shader')
+    }
+
+
+
+     /*==========================================================================
+        WHEN DOCUMENT LOADING
+    ==========================================================================*/
+        $(window).on('load', function() {
+
+            preloader();
+
+            sliderBgSetting();
+
+            toggleMobileNavigation();
+
+            smallNavFunctionality();
+
+            //set the couple section groom bride two col equal height
+            if($(".wedding-couple-section").length) {
+                setTwoColEqHeight($(".wedding-couple-section .gb .img-holder"), $(".wedding-couple-section .gb .details"));
+            }
+
+            smoothScrolling($("#navbar > ul > li > a[href^='#']"), $(".header-style-1 .navigation").innerHeight());
+
+            activeMenuItem($(".navigation-holder"));
+            if ($(".header-style-1").length) {
+                stickIt($(".sticky"), "sticky-on", $(".header-style-1 .navigation").offset().top);
+            }
+    
+            if ($(".header-style-2").length) {
+                stickIt($(".sticky-2"), "sticky-on", 300);
+            }
+        });
+
+
+
+    /*==========================================================================
+        WHEN WINDOW SCROLL
+    ==========================================================================*/
+    $(window).on("scroll", function() {
+
+        bgParallax();
+
+        activeMenuItem($(".navigation-holder"));
+
+        if ($(".header-style-1").length) {
+            stickIt($(".sticky"), "sticky-on", $(".header-style-1 .navigation").offset().top);
+        }
+
+        if ($(".header-style-2").length) {
+            stickIt($(".sticky-2"), "sticky-on", 300);
+        }
+    });
+
+
+    /*==========================================================================
+        WHEN WINDOW RESIZE
+    ==========================================================================*/
+    $(window).on("resize", function() {
+        toggleClassForSmallNav();
+        //smallNavFunctionality();
+
+        clearTimeout($.data(this, 'resizeTimer'));
+        $.data(this, 'resizeTimer', setTimeout(function() {
+            smallNavFunctionality();
+        }, 200));
+    });
+
+
+
+})(window.jQuery);

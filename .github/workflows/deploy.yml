@@ -10,30 +10,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: transformation des fichiers php
-        run: | 
-           cd src
-           mv index.html  index.php
-           mv gift.html  gift.php
-           mv navette.html  navette.php
             
-      - name: install tooling
-        run: |
-          npm install uglify-js -g
-          npm install clean-css-cli -g
+      # - name: install tooling
+      #   run: |
+      #     npm install uglify-js -g
+      #     npm install clean-css-cli -g
 
-      - name: compressing
-        run: |
-          cd src
-          uglifyjs js/bootstrap/bootstrap.js > js/bootstrap/bootstrap.js
-          # uglifyjs js/flexslider/jquery.flexslider.js > js/flexslider/jquery.flexslider.js
-          # uglifyjs js/countdown/jquery.countdown.js > js/countdown/jquery.countdown.js
-          # uglifyjs js/countdown/jquery.plugin.js > js/countdown/jquery.plugin.js
-          uglifyjs js/owlcarousel/owl.carousel.js > js/owlcarousel/owl.carousel.js
-          # uglifyjs js/script.js > js/script.js
-          cleancss -o css/style.css css/style.css
-          cleancss -o css/animate/animate.css css/animate/animate.css
+      # - name: compressing
+      #   run: |
+      #     cd src
+      #     uglifyjs js/bootstrap/bootstrap.js > js/bootstrap/bootstrap.js
+      #     # uglifyjs js/flexslider/jquery.flexslider.js > js/flexslider/jquery.flexslider.js
+      #     # uglifyjs js/countdown/jquery.countdown.js > js/countdown/jquery.countdown.js
+      #     # uglifyjs js/countdown/jquery.plugin.js > js/countdown/jquery.plugin.js
+      #     uglifyjs js/owlcarousel/owl.carousel.js > js/owlcarousel/owl.carousel.js
+      #     # uglifyjs js/script.js > js/script.js
+      #     cleancss -o css/style.css css/style.css
+      #     cleancss -o css/animate/animate.css css/animate/animate.css
           
 
       - name: upload FTP
